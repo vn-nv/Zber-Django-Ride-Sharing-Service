@@ -9,5 +9,10 @@ Users can participate in the service as 3 different roles, as shows in the follo
 ***
 ***Ride Sharer*** – A user can search for open ride requests by specifying a destination, arrival window (the user’s earliest and latest acceptable arrival date & time) and number of passengers in their party. The user can then become a ride sharer, by joining that ride. A ride sharer can also view the ride status, similarly to a ride owner. Finally, a ride sharer can edit their ride status as long as the ride is open.  
 ***
-![Aaron Swartz](https://raw.githubusercontent.com/vn-nv/Zber-Django-Ride-Sharing-Service/master/app_pic/main.jpg)
 Enjoy your ride at Zber!!!
+![Aaron Swartz](https://raw.githubusercontent.com/vn-nv/Zber-Django-Ride-Sharing-Service/master/app_pic/main.jpg)
+![Aaron Swartz](https://raw.githubusercontent.com/vn-nv/Zber-Django-Ride-Sharing-Service/master/app_pic/rider_index.jpg)
+![Aaron Swartz](https://raw.githubusercontent.com/vn-nv/Zber-Django-Ride-Sharing-Service/master/app_pic/share_ride.jpg)
+![Aaron Swartz](https://raw.githubusercontent.com/vn-nv/Zber-Django-Ride-Sharing-Service/master/app_pic/driver_registration.jpg)
+![Aaron Swartz](https://raw.githubusercontent.com/vn-nv/Zber-Django-Ride-Sharing-Service/master/app_pic/confirm_ride.jpg)
+
