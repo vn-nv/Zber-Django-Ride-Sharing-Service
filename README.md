@@ -12,7 +12,7 @@ Users can participate in the service as 3 different roles, as shows in the follo
 Enjoy your ride at Zber!!!
 ![Aaron Swartz](https://raw.githubusercontent.com/vn-nv/Zber-Django-Ride-Sharing-Service/master/app_pic/main.jpg)
 ![Aaron Swartz](https://raw.githubusercontent.com/vn-nv/Zber-Django-Ride-Sharing-Service/master/app_pic/rider_index.jpg)
-![Aaron Swartz](https://raw.githubusercontent.com/vn-nv/Zber-Django-Ride-Sharing-Service/master/app_pic/share_ride.jpg)
+![Aaron Swartz]()
 ![Aaron Swartz](https://raw.githubusercontent.com/vn-nv/Zber-Django-Ride-Sharing-Service/master/app_pic/driver_registration.jpg)
 ![Aaron Swartz](https://raw.githubusercontent.com/vn-nv/Zber-Django-Ride-Sharing-Service/master/app_pic/confirm_ride.jpg)
 
