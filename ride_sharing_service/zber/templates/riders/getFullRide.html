@@ -1,0 +1,187 @@
+{% extends 'riders/base.html' %}
+
+{% block title %}Detail of the ride{% endblock %}
+
+{% block header %}
+  <a href="/" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">       
+      </a>
+
+      <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+        <li><a href="#" class="nav-link px-2 link-secondary"></a></li>
+      </ul>
+
+      <div class="col-md-3">
+        <a role="button" class="btn btn-primary" href="{% url 'zber:riders:index' %}">Back</a>
+      </div>
+{% endblock %}
+
+{% block content %}
+  <div id="accordion">
+    <div class="card">
+      <div class="card-header" id="headingOne">
+        <h5 class="mb-0">
+          <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+            Ride Owner
+          </button>
+        </h5>
+      </div>
+  
+      <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+        <div class="card-body">
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">Email</th>
+      <th scope="col">Owner Passengers</th>      
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>{{ ride_owner.user.first_name }} {{ride_owner.user.last_name}}</td>
+      <td>{{ride_owner.user.email}}</td>
+      <td>{{ride_owner.sum_owners}}</td>
+    </tr>
+  </tbody>
+</table>
+
+
+	</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header" id="headingTwo">
+        <h5 class="mb-0">
+          <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+            Ride
+          </button>
+        </h5>
+      </div>
+      <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+        <div class="card-body">
+	  <table class="table">
+	    <thead>
+	      <tr>
+		<th scope="col">Sum Passengers</th>
+		<th scope="col">Specified Vehicle Type</th>
+		<th scope="col">Special Request</th>
+		<th scope="col">Destination Address</th>
+		<th scope="col">Arrival Time</th>		
+	      </tr>
+	    </thead>
+	    <tbody>
+	      <tr>
+		<td>{{ride.sum_passengers}}</td>
+		<td>{{ride_owner.specific_type}}</td>
+		<td>{{ride_owner.special_requests}}</td>
+		<td>{{ride.dest_addr}}</td>
+		<td>{{ride.arrival_time}}</td>		
+	      </tr>
+	    </tbody>
+	  </table>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="card">
+      <div class="card-header" id="headingThree">
+        <h5 class="mb-0">
+          <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+            Driver
+          </button>
+        </h5>
+      </div>
+      <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+        <div class="card-body">
+          {% if driver %}
+	  <table class="table">
+	    <thead>
+	      <tr>
+		<th scope="col">Driver Username</th>
+		<th scope="col">Driver Email</th>			
+	      </tr>
+	    </thead>
+	    <tbody>
+	      <tr>
+		<td>{{driver.user.username}}</td>
+		<td>{{driver.user.email}}</td>		
+	      </tr>
+	    </tbody>
+	  </table>            
+          {% endif %}
+        </div>
+      </div>
+    </div>
+
+    
+    <div class="card">
+      <div class="card-header" id="headingThree">
+        <h5 class="mb-0">
+          <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapse4" aria-expanded="false" aria-controls="collapseThree">
+            Vehicle
+          </button>
+        </h5>
+      </div>
+      <div id="collapse4" class="collapse" aria-labelledby="heading4" data-parent="#accordion">
+        <div class="card-body">
+          {% if driver %}
+	  <table class="table">
+	    <thead>
+	      <tr>
+		<th scope="col">License Plate</th>
+		<th scope="col">Vehicle Type</th>
+		<th scope="col">VIN</th>			
+	      </tr>
+	    </thead>
+	    <tbody>
+	      <tr>
+		<td>{{driver.license_plate}}</td>
+		<td>{{driver.vehicle_type}}</td>
+		<td>{{driver.VIN}}</td>			
+	      </tr>
+	    </tbody>
+	  </table>            
+          {% endif %}
+        </div>
+      </div>
+    </div>
+
+    
+    
+    <div class="card">
+      <div class="card-header" id="headingFive">
+        <h5 class="mb-0">
+          <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+            Sharer
+          </button>
+        </h5>
+      </div>
+      <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#accordion">
+	<table class="table">
+	    <thead>
+	      <tr>
+		<th scope="col">Sharer Username</th>
+		<th scope="col">Passenger Number</th>
+	      </tr>
+	    </thead>
+	    {% if sharers %}
+	    {% for sharer in sharers%}
+	    
+	    <tbody>
+	      <tr>
+		<td>{{sharer.user.username}}</td>
+		<td>{{sharer.sum_sharers}}</td>
+	      </tr>
+	    </tbody>
+	  
+	    {% endfor %}
+	    {% endif %}
+	    </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+{% endblock %}

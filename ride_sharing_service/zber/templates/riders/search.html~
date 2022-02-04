@@ -1,0 +1,46 @@
+{% extends "drivers/base.html" %}
+
+{% block header %}
+  <a href="/" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">       
+      </a>
+
+      <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+        <li><a href="#" class="nav-link px-2 link-secondary"></a></li>
+      </ul>
+
+      <div class="col-md-3">
+          <a role="button" class="btn btn-primary" href="{% url 'zber:drivers:index' %}">Back</a>
+      </div>
+{% endblock %}
+
+{% block content %}
+
+<form method="POST" action='#'>
+  {% scrf_token %}
+  {{ form.as_t }}
+  <input value="Search">
+</form>
+      
+{% if result_rides %}
+  
+  {% for ride in result_rides %}
+  <a class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
+    <div class="d-flex gap-2 w-100 justify-content-between">
+      <div>
+        <h6 class="mb-0">{{ride.ride_owner.user.username}}({{ride.sum_passengers}})</h6>
+        <p class="mb-0 opacity-75">{{ ride.dest_addr }}</p>
+      </div>
+      <small class="opacity-50 text-nowrap">{{ride.arrival_time}}</small>
+    </div>
+    <a href="#" role="button" class="btn btn-outline-primary">Confirm</a>
+  </a>
+  {% endfor %}
+
+      
+{% else %}
+
+
+      
+{% endif %}
+      
+{% endblock %}

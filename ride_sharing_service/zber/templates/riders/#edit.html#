@@ -1,0 +1,14 @@
+{% extends 'drivers/base.html' %}
+
+{% block title %}Register As A Driver!{% endblock %}
+
+{% block content %}
+
+<form method="post" action="{% url 'zber:drivers:register' %}">
+{% csrf_token %}
+    {{ form.as_p }}
+<input type="submit" value="Register">
+</form>
+
+
+{% endblock %}

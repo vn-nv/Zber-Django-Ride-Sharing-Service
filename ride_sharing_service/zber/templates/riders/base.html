@@ -1,0 +1,15 @@
+{% extends "allbase.html" %}
+
+{% block title %}Rider Information{% endblock %}
+
+{% block body %}
+  <div class="container">
+    <div class="row">
+      <div class="col-1"></div>
+      <div class="col-10">
+        {% block content %}{% endblock %}
+      </div>
+      <div class="col-1"></div>
+    </div>
+  </div>
+{% endblock %}

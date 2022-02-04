@@ -1,0 +1,54 @@
+{% extends "drivers/base.html" %}
+
+{% block header %}
+  <a href="/" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">       
+      </a>
+
+      <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+        <li><a href="#" class="nav-link px-2 link-secondary"></a></li>
+      </ul>
+
+      <div class="col-md-3">
+          <a role="button" class="btn btn-primary" href="{% url 'zber:drivers:index' %}">Back</a>
+      </div>
+{% endblock %}
+
+{% block content %}
+
+<dl class="row">
+  <dt class="col-sm-3">Ride Owner</dt>
+  <dd class="col-sm-9">{{ ride_owner.user.username }}</dd>
+
+  <dt class="col-sm-3">Destination Address</dt>
+  <dd class="col-sm-9">{{ ride.dest_addr }}</dd>
+
+  <dt class="col-sm-3">Arrival Time</dt>
+  <dd class="col-sm-9">{{ ride.arrival_time }}</dd>
+
+  <dt class="col-sm-3 ">Sum Passengers</dt>
+  <dd class="col-sm-9">{{ ride.sum_passengers }}</dd>
+
+  <dt class="col-sm-3">Special Info</dt>
+  <dd class="col-sm-9">{{ ride_owner.special_requests }}</dd>  
+  
+  <p>There are {{ride_sharers|length}} sharers in this ride.</p>
+  
+  {% for sharer in ride_sharers %}
+    <dt class="col-sm-3">Sharer Name</dt>
+    <dd class="col-sm-9">{{ sharer.user.username }}</dd>
+
+    <dt class="col-sm-3">Passenger Number</dt>
+    <dd class="col-sm-9">{{ sharer.sum_sharers }}</dd>
+  {% endfor %}
+  
+</dl>
+<br>
+
+<div class="col-md-3">
+  <form action="{% url 'zber:drivers:ride_confirm' ride.ride_owner.order_no %}" method="post">
+    {% csrf_token %}
+    <input role="button" class="btn btn-primary" type="submit" value="Confirm">
+  </form>
+</div>
+
+{% endblock %}

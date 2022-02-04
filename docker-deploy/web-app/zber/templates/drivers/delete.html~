@@ -1,0 +1,29 @@
+{% extends 'drivers/base.html' %}
+
+{% block title %}Edit Driver Infomation{% endblock %}
+
+{% block header %}
+  <a href="/" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">       
+      </a>
+
+      <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+        <li><a href="#" class="nav-link px-2 link-secondary"></a></li>
+      </ul>
+
+      <div class="col-md-3">
+        <a role="button" class="btn btn-primary" href="{% url 'zber:drivers:index' %}">Back</a>
+        <a role="button" class="btn btn-danger" href="{% url 'zber:drivers:delete' %}">Delete</a>	
+      </div>
+{% endblock %}
+
+{% block content %}
+
+<form method="post" action="{% url 'zber:drivers:edit' %}">
+  {% csrf_token %}
+  {{ form.as_p }}
+
+<input type="submit" value="Submit">
+</form>
+
+
+{% endblock %}

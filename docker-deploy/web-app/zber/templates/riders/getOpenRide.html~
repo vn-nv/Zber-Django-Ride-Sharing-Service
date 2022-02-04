@@ -1,0 +1,95 @@
+{% extends "drivers/base.html" %}
+
+{% block header %}
+  <a href="/" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">       
+      </a>
+
+      <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+        <li><a href="#" class="nav-link px-2 link-secondary"></a></li>
+      </ul>
+
+      <div class="col-md-3">
+          <a role="button" class="btn btn-primary" href="{% url 'zber:riders:index' %}">Back</a>
+      </div>
+{% endblock %}
+
+{% block content %}
+
+
+<p class="h1">Ready to share rides?</p>
+<form method="post" action="{% url 'zber:riders:getOpenRide' %}">
+  {% csrf_token %}
+  <div class="form-row">
+    <div class="col">
+      <input name="destination" type="text" class="form-control" placeholder="Destination">
+    </div>
+    <div class="col">
+      <input type="sum_passengers" class="form-control" placeholder="Number of passengers less than">
+    </div>
+    <div class="col">
+      <input type="early_arrival_time" class="form-control" placeholder="Early date and time of arrival">
+    </div>
+    <div class="col">
+      <input type="late_arrival_time" class="form-control" placeholder="Late date and time of arrival">
+    </div>
+  </div>
+  <input  role="button" class="btn btn-outline-primary" value='Search a specific request' type='submit'>
+</form>
+{% if ride_requests %}
+<div class="table-responsive">
+<table class="table text-nowrap">
+  <thead>
+      <th>Order No.</th>
+      <th>To</th>
+      <th>When</th>
+      <th>Type</th>
+      <th>Passengers</th>
+      <th>Operation</th>
+  </thead>
+  <tbody id="table_my_requests">
+      {% for ride_request in ride_requests %}
+      <tr>
+          <td>{{ride_request.ride_owner.order_no}}</td>
+          <td>{{ride_request.dest_addr}}</td>
+          <td>{{ride_request.arrival_time}}</td>
+          <td>{{ride_request.ride_owner.specific_type}}</td>
+          <td>{{ride_request.sum_passengers}}</td>
+          <td>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="ride_request.ride_owner.order_no">share</button>
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Wanna share?</h5>
+                  </div>
+                  <div class="modal-body">
+                    <form method="post" action="{% url 'zber:riders:shareRide' ride_request.ride_owner.order_no %}">
+                      {% csrf_token %}
+                      <div class="form-group col-md-4">
+                        <label>Number of sharers</label>
+                        <select name="sum_sharers" class="form-control">
+                          <option>1</option>
+                          <option>2</option>
+                          <option>3</option>
+                          <option>4</option>
+                          <option>5</option>
+                        </select>
+                      </div>
+                      <input  role="button" class="btn btn-outline-primary" value='share' type='submit'>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </td>
+      </tr>
+      {% endfor %}
+  </tbody>
+</table>
+</div>
+{% else %}
+<h1 class="display-6">There is no available ride for you</h1>
+{% endif %}
+
+
+{% endblock %}

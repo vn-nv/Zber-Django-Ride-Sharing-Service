@@ -1,0 +1,22 @@
+{% extends "zber/base.html" %}
+
+{% block sidebar %}
+
+<p>Welcome to Zber!</p>
+<ul class="list-group">
+  <li class="list-group-item">Username: {{user.username}}</li>
+  <li class="list-group-item">Name: {{user.first_name}} {{ user.last_name }}</li>
+  <li class="list-group-item">Email: {{user.email}}</li>
+</ul>
+{% if driver %}
+
+{% else %}
+   <a class="btn btn-primary" href="{% url 'app:drivers:register' %}" role="button">Register As a Driver!</a>
+{% endif %}
+<br>
+<a href="{% url 'logout' %}" class="btn btn-primary btn-lg" role="button">Log out</a>
+
+{% endblock %}
+
+{% block content %}
+{% endblock %}

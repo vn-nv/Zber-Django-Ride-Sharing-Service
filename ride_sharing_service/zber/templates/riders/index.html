@@ -1,0 +1,214 @@
+{% extends "riders/base.html" %}
+
+{% block header %}
+<a href="/" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">       
+      </a>
+
+      <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+        <li><a href="#" class="nav-link px-2 link-secondary"></a></li>
+      </ul>
+
+      <div class="col-md-3">
+	<a role="button" class="btn btn-outline-primary me-2" href = "{% url 'zber:riders:postRideRequest' %}">Request a Ride</a>
+	<a role="button" class="btn btn-outline-primary me-2" href = "{% url 'zber:riders:getOpenRide' %}">Share a Ride</a>
+	        <a role="button" class="btn btn-primary" href="{% url 'zber:index' %}">Back</a>
+      </div>
+
+{% endblock %}
+
+{% block content %}
+<p class="h1">My confirmed rides</p>
+{% if my_rides %}
+<table class="table">
+  <thead>
+      <th>Order No.</th>
+      <th>To</th>
+      <th>When</th>
+      <th>Total Passengers</th>
+      <th>Driver</th>
+      <th>Driver License</th>
+      <th>Type</th>
+      <th>Share</th>
+      <th>Operation</th>
+  </thead>
+  <tbody id="table_my_requests">
+      {% for my_ride in my_rides %}
+      <tr>
+          <td>{{my_ride.ride_owner.order_no}}</td>
+          <td>{{my_ride.dest_addr}}</td>
+          <td>{{my_ride.arrival_time}}</td>
+          <td>{{my_ride.sum_passengers}}</td>
+          <td>{{my_ride.driver.user.first_name}}</td>
+          <td>{{my_ride.driver.driver_license}}</td>
+          <td>{{my_ride.ride_owner.specific_type}}</td>
+          <td>{{my_ride.share}}</td>
+          <td>
+            <form action="{% url 'zber:riders:getFullRide' my_ride.ride_owner.order_no %}" method='POST'>
+              {% csrf_token %}
+            <input  role="button" class="btn btn-outline-primary" value='detail' type='submit'></form>
+          </td>
+      </tr>
+      {% endfor %}
+  </tbody>
+</table>
+{% else %}
+<h1 class="display-6">Empty yet</h1>
+{% endif %}
+<p class="h1">My confirmed shared rides</p>
+{% if confirmed_shared_rides %}
+<table class="table">
+  <thead>
+      <th>Order No.</th>
+      <th>To</th>
+      <th>When</th>
+      <th>Total Passengers</th>
+      <th>Driver</th>
+      <th>Driver License</th>
+      <th>Type</th>
+      <th>Share</th>
+      <th>Operation</th>
+  </thead>
+  <tbody id="table_my_requests">
+      {% for confirmed_shared_ride in confirmed_shared_rides %}
+      <tr>
+          <td>{{confirmed_shared_ride.ride_owner.order_no}}</td>
+          <td>{{confirmed_shared_ride.dest_addr}}</td>
+          <td>{{confirmed_shared_ride.arrival_time}}</td>
+          <td>{{confirmed_shared_ride.sum_passengers}}</td>
+          <td>{{confirmed_shared_ride.driver.user.first_name}}</td>
+          <td>{{confirmed_shared_ride.driver.driver_license}}</td>
+          <td>{{confirmed_shared_ride.ride_owner.specific_type}}</td>
+          <td>{{confirmed_shared_ide.share}}</td>
+          <td>
+            <form action="{% url 'zber:riders:getFullRide' confirmed_shared_ride.ride_owner.order_no %}" method='POST'>
+              {% csrf_token %}
+            <input  role="button" class="btn btn-outline-primary" value='detail' type='submit'></form>
+          </td>
+      </tr>
+      {% endfor %}
+  </tbody>
+</table>
+{% else %}
+<h1 class="display-6">Empty yet</h1>
+{% endif %}
+<p class="h1">My requests</p>
+{% if my_requests %}
+<table class="table">
+  <thead>
+      <th>Order No.</th>
+      <th>To</th>
+      <th>When</th>
+      <th>Type</th>
+      <th>Total Passengers</th>
+      <th>Share</th>
+      <th>Special Request</th>
+      <th>Option1</th>
+      <th>Option2</th>
+      <th>Option3</th>
+  </thead>
+  <tbody id="table_my_requests">
+      {% for my_request in my_requests %}
+      <tr>
+          <td>{{my_request.ride_owner.order_no}}</td>
+          <td>{{my_request.dest_addr}}</td>
+          <td>{{my_request.arrival_time}}</td>
+          <td>{{my_request.ride_owner.specific_type}}</td>
+          <td>{{my_request.sum_passengers}}</td>
+          <td>{{my_request.share}}</td>
+          <td>{{my_request.ride_owner.special_requests}}</td>
+          <td>
+            <form action="{% url 'zber:riders:editRideRequest' my_request.ride_owner.order_no %}" method='GET'>
+              {% csrf_token %}
+            <input  role="button" class="btn btn-outline-primary" value='edit' type='submit'></form>
+          </td>
+          <td>
+            <form action="{% url 'zber:riders:deleteRideRequest' my_request.ride_owner.order_no %}" method='POST'>
+              {% csrf_token %}
+            <input  role="button" class="btn btn-danger" value='delete' type='submit'></form>
+          </td>
+          <td>
+            <form action="{% url 'zber:riders:getFullRide' my_request.ride_owner.order_no %}" method='POST'>
+              {% csrf_token %}
+            <input  role="button" class="btn btn-outline-primary" value='detail' type='submit'></form>
+          </td>
+      </tr>
+      {% endfor %}
+  </tbody>
+</table>
+{% else %}
+<h1 class="display-6">Empty yet</h1>
+{% endif %}
+<p class="h1">My shared rides</p>
+{% if my_shared_rides %}
+<table class="table">
+  <thead>
+      <th>Order No.</th>
+      <th>To</th>
+      <th>When</th>
+      <th>Total Passengers</th>
+      <th>Driver</th>
+      <th>Driver License</th>
+      <th>Type</th>
+      <th>VIN</th>
+      <th>Operation1</th>
+      <th>Operation2</th>
+      <th>Operation3</th>
+  </thead>
+  <tbody id="table_my_shared_rides">
+      {% for my_shared_ride in my_shared_rides %}
+      <tr>
+          <td>{{my_shared_ride.ride_owner.order_no}}</td>
+          <td>{{my_shared_ride.dest_addr}}</td>
+          <td>{{my_shared_ride.arrival_time}}</td>
+          <td>{{my_shared_ride.sum_passengers}}</td>
+          <td>{{my_shared_ride.driver.user.first_name}}</td>
+          <td>{{my_shared_ride.driver.driver_license}}</td>
+          <td>{{my_shared_ride.ride_owner.specific_type}}</td>
+          <td>{{my_shared_ride.driver.VIN}}</td>
+          <td>
+            <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#exampleModal{{my_shared_ride.ride_owner.order_no}}" data-whatever="my_shared_ride.ride_owner.order_no">edit</button>
+            <div class="modal fade" id="exampleModal{{my_shared_ride.ride_owner.order_no}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Edit the number of sharers</h5>
+                  </div>
+                  <div class="modal-body">
+                    <form method="post" action="{% url 'zber:riders:editSharedRide' my_shared_ride.ride_owner.order_no %}">
+                      {% csrf_token %}
+                      <div class="form-group col-md-4">
+                        <label>Number of sharers</label>
+                        <select name="sum_sharers" class="form-control">
+                          <option>1</option>
+                          <option>2</option>
+                          <option>3</option>
+                          <option>4</option>
+                          <option>5</option>
+                        </select>
+                      </div>
+                      <input  role="button" class="btn btn-outline-primary" value='edit' type='submit'>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <td>
+            <form action="{% url 'zber:riders:deleteSharedRide' my_shared_ride.ride_owner.order_no %}" method='POST'>
+              {% csrf_token %}
+            <input  role="button" class="btn btn-danger" value='delete' type='submit'></form>
+          </td>
+          <td>
+            <form action="{% url 'zber:riders:getFullRide' my_shared_ride.ride_owner.order_no %}" method='POST'>
+              {% csrf_token %}
+            <input  role="button" class="btn btn-outline-primary" value='detail' type='submit'></form>
+          </td>
+      </tr>
+      {% endfor %}
+  </tbody>
+</table>
+{% else %}
+<h1 class="display-6">Empty yet</h1>
+{% endif %}
+
+
+{% endblock %}

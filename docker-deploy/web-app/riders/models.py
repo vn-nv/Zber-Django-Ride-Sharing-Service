@@ -1,0 +1,44 @@
+from django.db import models
+from django.contrib.auth.models import User
+
+import sys
+sys.path.append("..")
+from zber.models import VEHICLE_TYPES
+from drivers.models import Driver
+
+
+class Ride_Owner(models.Model):
+    order_no = models.BigAutoField(primary_key=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    sum_owners = models.IntegerField()
+    specific_type = models.CharField(max_length=1,
+                                     choices=VEHICLE_TYPES,
+                                     default=None,
+                                     null=True)
+    special_requests = models.CharField(max_length=200, null=True, default=None)
+
+
+class Ride(models.Model):
+    ride_owner = models.OneToOneField(Ride_Owner,
+                                      on_delete=models.CASCADE,
+                                      primary_key=True)
+    dest_addr = models.CharField(max_length=30)
+    arrival_time = models.DateTimeField()
+    sum_passengers = models.IntegerField()
+    driver = models.ForeignKey(Driver, on_delete=models.SET_NULL, null=True)
+    share = models.BooleanField()
+    STATUS_TYPES = (
+        ('o', 'open'),
+        ('c', 'confirmed'),
+        ('t', 'complete')
+    )
+    status = models.CharField(max_length=1, choices=STATUS_TYPES)
+
+
+class Ride_Sharer(models.Model):
+    ride = models.ForeignKey(Ride, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    sum_sharers = models.IntegerField()
+
+    class Meta:
+        unique_together = ("user", "ride")

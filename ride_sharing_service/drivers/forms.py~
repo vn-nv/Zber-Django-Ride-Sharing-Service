@@ -1,0 +1,16 @@
+from django.forms import ModelForm, PasswordInput
+from .models import Driver
+
+
+"""
+   Form of registering a user
+"""
+
+
+class LogupForm(ModelForm):
+    class Meta:
+        model = Driver
+        fields = ['username', 'first_name', 'last_name', 'email', 'password']
+        widgets = {
+            'password': PasswordInput(),
+        }

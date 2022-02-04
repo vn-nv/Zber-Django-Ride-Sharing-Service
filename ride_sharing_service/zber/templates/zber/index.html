@@ -1,0 +1,28 @@
+{% extends "zber/base.html" %}
+
+{% block sidebar %}
+
+<ul class="list-group">
+  <li class="list-group-item">Username: {{user.username}}</li>
+  <li class="list-group-item">Name: {{user.first_name}} {{ user.last_name }}</li>
+  <li class="list-group-item">Email: {{user.email}}</li>
+</ul>
+<br>
+<a href="{% url 'logout' %}" class="btn btn-primary btn-lg" role="button">Log out</a>
+
+{% endblock %}
+
+{% block content %}
+
+  <div class="px-4 py-5 my-5 text-center">
+    <h1 class="display-5 fw-bold">Welcome to Zber</h1>
+    <div class="col-lg-6 mx-auto">
+      <p class="lead mb-4">This is Zber, a ride sharing service. You can request a ride, join other's ride, or offer others a ride!</p>
+      <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+        <a class="btn btn-primary btn-lg px-4 gap-3" href="{% url 'zber:riders:index' %}" role="button">I'm a rider</a>
+        <a class="btn btn-primary btn-lg px-4" href="{% url 'zber:drivers:index' %}" role="button">I'm a driver</a>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

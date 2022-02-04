@@ -1,0 +1,5 @@
+from django import forms
+
+
+class SearchForm(forms.Form):
+    vehicle_capacity = forms.MultipleChoiceField(['X', 'L', 'S', 'U'])

@@ -1,0 +1,54 @@
+{% extends "registration/base.html" %}
+
+{% block title %}
+Log in - Zber
+{% endblock %}
+
+{% block header %}
+  <a href="/" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">       
+      </a>
+
+      <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+        <li><a href="#" class="nav-link px-2 link-secondary"></a></li>
+      </ul>
+
+      <div class="col-md-3">
+        <a href="{% url 'zber:logup' %}" class="btn btn-primary btn-lg" role="button">Log Up Now</a>
+      </div>
+{% endblock %}
+
+{% block content %}
+
+{% if form.errors %}
+<p>Your username and password didn't match. Please try again.</p>
+{% endif %}
+
+{% if next %}
+    {% if user.is_authenticated %}
+    <p>Your account doesn't have access to this page. To proceed,
+    please login with an account that has access.</p>
+    {% else %}
+    <p>Please login to see this page.</p>
+    {% endif %}
+{% endif %}
+<div class="form-signin">
+  <form method="post" action="{% url 'login' %}">    
+    <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+    {% csrf_token %}
+    <div>
+    <label>Username: </label>
+    {{ form.username }}
+    </div>
+    <div>
+    <label>Password: </label>
+    {{ form.password }}
+    </div>
+</div>
+
+<input class="btn btn-lg btn-primary" type="submit" value="Log in">
+
+  </form>
+  </div>
+
+
+{% endblock %}

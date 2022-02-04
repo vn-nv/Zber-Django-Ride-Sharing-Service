@@ -1,0 +1,12 @@
+Some views are not decorated with @login_required, which means that they can be accessed without logging in.
+
+Some functions don't have any error gaurantee, which means that data in database may be mistakenly updated before we catch an error.
+
+Some functions are not following POST/REDIRECT/GET pattern, which means that the same data may be posted more than once when user
+refresh the page. For example, a ride request may be submitted twice and making two open rides in the database.
+
+We didn't check the data validation when user submit an operation. For example, when a driver wants to confirm a ride, the ride has
+probably already been confirmed by anothere driver. This will cause an undefined behavior.
+
+Some behaviors requested in GET method changes data in database. This enables malicous users to use manipulate our database via url.
+
